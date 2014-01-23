@@ -31,7 +31,7 @@ LT_AGE = 1
 CFILES = $(POSIX_CFILES) $(LIBACL_CFILES) $(INTERNAL_CFILES) \
 	 perm_copy_fd.c perm_copy_file.c
 HFILES = libobj.h libacl.h byteorder.h __acl_from_xattr.h __acl_to_xattr.h \
-	 perm_copy.h
+	 perm_copy.h __acl_extended_file.h
 
 LCFLAGS = -include perm_copy.h
 
@@ -47,7 +47,8 @@ POSIX_CFILES = \
 
 LIBACL_CFILES = \
 	acl_to_any_text.c acl_entries.c acl_check.c acl_error.c acl_cmp.c \
-	acl_extended_fd.c acl_extended_file.c acl_equiv_mode.c acl_from_mode.c
+	acl_extended_fd.c acl_extended_file.c acl_equiv_mode.c acl_from_mode.c \
+	acl_extended_file_nofollow.c __acl_extended_file.c
 
 INTERNAL_CFILES = \
 	__acl_to_any_text.c __acl_to_xattr.c __acl_from_xattr.c \

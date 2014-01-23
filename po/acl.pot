@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-19 22:29-0800\n"
+"POT-Creation-Date: 2011-04-19 10:54-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -131,42 +132,42 @@ msgstr ""
 msgid "%s: %s: Only directories can have default ACLs\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:145
+#: ../setfacl/setfacl.c:148
 #, c-format
 msgid "%s: %s: No filename found in line %d, aborting\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:150
+#: ../setfacl/setfacl.c:153
 #, c-format
 msgid "%s: No filename found in line %d of standard input, aborting\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:171
+#: ../setfacl/setfacl.c:174
 #, c-format
 msgid "%s: %s: %s in line %d\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:203
+#: ../setfacl/setfacl.c:206
 #, c-format
 msgid "%s: %s: Cannot change owner/group: %s\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:217
+#: ../setfacl/setfacl.c:225
 #, c-format
 msgid "%s: %s: Cannot change mode: %s\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:257
+#: ../setfacl/setfacl.c:267
 #, c-format
 msgid "%s %s -- set file access control lists\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:259 ../setfacl/setfacl.c:643
+#: ../setfacl/setfacl.c:269 ../setfacl/setfacl.c:655
 #, c-format
 msgid "Usage: %s %s\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:262
+#: ../setfacl/setfacl.c:272
 #, c-format
 msgid ""
 "  -m, --modify=acl        modify the current ACL(s) of file(s)\n"
@@ -177,7 +178,7 @@ msgid ""
 "  -k, --remove-default    remove the default ACL\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:271
+#: ../setfacl/setfacl.c:281
 #, c-format
 msgid ""
 "      --set=acl           set the ACL of file(s), replacing the current ACL\n"
@@ -185,14 +186,14 @@ msgid ""
 "      --mask              do recalculate the effective rights mask\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:277
+#: ../setfacl/setfacl.c:287
 #, c-format
 msgid ""
 "  -n, --no-mask           don't recalculate the effective rights mask\n"
 "  -d, --default           operations apply to the default ACL\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:282
+#: ../setfacl/setfacl.c:292
 #, c-format
 msgid ""
 "  -R, --recursive         recurse into subdirectories\n"
@@ -202,39 +203,39 @@ msgid ""
 "      --test              test mode (ACLs are not modified)\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:290 ../getfacl/getfacl.c:587
+#: ../setfacl/setfacl.c:300 ../getfacl/getfacl.c:587
 #, c-format
 msgid ""
 "  -v, --version           print version and exit\n"
 "  -h, --help              this help text\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:307 ../getfacl/getfacl.c:729
+#: ../setfacl/setfacl.c:317 ../getfacl/getfacl.c:729
 #, c-format
 msgid "%s: Standard input: %s\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:443
+#: ../setfacl/setfacl.c:453
 #, c-format
 msgid "%s: Option -%c incomplete\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:448
+#: ../setfacl/setfacl.c:458
 #, c-format
 msgid "%s: Option -%c: %s near character %d\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:524
+#: ../setfacl/setfacl.c:534
 #, c-format
 msgid "%s: %s in line %d of file %s\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:532
+#: ../setfacl/setfacl.c:542
 #, c-format
 msgid "%s: %s in line %d of standard input\n"
 msgstr ""
 
-#: ../setfacl/setfacl.c:645 ../getfacl/getfacl.c:744
+#: ../setfacl/setfacl.c:657 ../getfacl/getfacl.c:744
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""

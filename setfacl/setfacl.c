@@ -76,7 +76,7 @@ struct option long_options[] = {
 const char *progname;
 const char *cmd_line_options, *cmd_line_spec;
 
-int walk_flags = WALK_TREE_DEREFERENCE;
+int walk_flags = WALK_TREE_DEREFERENCE_TOPLEVEL;
 int opt_recalculate;  /* recalculate mask entry (0=default, 1=yes, -1=no) */
 int opt_promote;  /* promote access ACL to default ACL */
 int opt_test;  /* do not write to the file system.
@@ -125,9 +125,10 @@ restore(
 	uid_t uid;
 	gid_t gid;
 	mode_t mask, flags;
-	struct do_set_args args;
+	struct do_set_args args = { };
 	int line = 0, backup_line;
 	int error, status = 0;
+	int chmod_required = 0;
 
 	memset(&st, 0, sizeof(st));
 
@@ -135,8 +136,10 @@ restore(
 		backup_line = line;
 		error = read_acl_comments(file, &line, &path_p, &uid, &gid,
 					  &flags);
-		if (error < 0)
+		if (error < 0) {
+			error = -error;
 			goto fail;
+		}
 		if (error == 0)
 			return status;
 
@@ -157,10 +160,10 @@ restore(
 		}
 
 		if (!(args.seq = seq_init()))
-			goto fail;
+			goto fail_errno;
 		if (seq_append_cmd(args.seq, CMD_REMOVE_ACL, ACL_TYPE_ACCESS) ||
 		    seq_append_cmd(args.seq, CMD_REMOVE_ACL, ACL_TYPE_DEFAULT))
-			goto fail;
+			goto fail_errno;
 
 		error = read_acl_seq(file, args.seq, CMD_ENTRY_REPLACE,
 		                     SEQ_PARSE_WITH_PERM |
@@ -206,10 +209,15 @@ restore(
 					strerror(errno));
 				status = 1;
 			}
+
+			/* chown() clears setuid/setgid so force a chmod if
+			 * S_ISUID/S_ISGID was expected */
+			if ((st.st_mode & flags) & (S_ISUID | S_ISGID))
+				chmod_required = 1;
 		}
 
 		mask = S_ISUID | S_ISGID | S_ISVTX;
-		if ((st.st_mode & mask) != (flags & mask)) {
+		if (chmod_required || ((st.st_mode & mask) != (flags & mask))) {
 			if (!args.mode)
 				args.mode = st.st_mode;
 			args.mode &= (S_IRWXU | S_IRWXG | S_IRWXO);
@@ -243,9 +251,11 @@ getout:
 	}
 	return status;
 
+fail_errno:
+	error = errno;
 fail:
 	fprintf(stderr, "%s: %s: %s\n", progname, xquote(filename, "\n\r"),
-		strerror(errno));
+		strerror(error));
 	status = 1;
 	goto getout;
 }
@@ -580,13 +590,15 @@ int main(int argc, char *argv[])
 				break;
 
 			case 'L':  /* follow symlinks */
-				walk_flags |= WALK_TREE_LOGICAL;
+				walk_flags |= WALK_TREE_LOGICAL | WALK_TREE_DEREFERENCE;
 				walk_flags &= ~WALK_TREE_PHYSICAL;
 				break;
 
 			case 'P':  /* do not follow symlinks */
 				walk_flags |= WALK_TREE_PHYSICAL;
-				walk_flags &= ~WALK_TREE_LOGICAL;
+				walk_flags |= WALK_TREE_PHYSICAL;
+				walk_flags &= ~(WALK_TREE_LOGICAL | WALK_TREE_DEREFERENCE |
+						WALK_TREE_DEREFERENCE_TOPLEVEL);
 				break;
 
 			case 't':  /* test mode */
